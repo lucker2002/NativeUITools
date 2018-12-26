@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.content.Context;
+import java.lang.reflect.Method;
 
 /**
  * This class echoes a string called from JavaScript.
