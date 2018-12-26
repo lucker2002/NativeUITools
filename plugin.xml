@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-NativeUITools" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>NativeUITools</name>
+    <js-module name="nativeUITools" src="www/NativeUITools.js">
+        <clobbers target="window.NativeUITools" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="NativeUITools">
+                <param name="android-package" value="org.apache.cordova.nativeUITools.NativeUITools" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/NativeUITools.java" target-dir="src/org/apache/cordova/nativeUITools" />
+    </platform>
+</plugin>
