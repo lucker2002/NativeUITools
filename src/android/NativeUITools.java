@@ -37,7 +37,7 @@ public class NativeUITools extends CordovaPlugin {
 
             return true;
         }
-        return false;
+
         if (action.equals("setImmerse")) {
             if (Build.VERSION.SDK_INT >= 21) {
                 this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -120,13 +120,19 @@ public class NativeUITools extends CordovaPlugin {
     public static int getHuaWei(Context context) {
 
         int[] ret = new int[]{0, 0};
-        ClassLoader cl = context.getClassLoader();
+        try{
+            ClassLoader cl = context.getClassLoader();
 
-        Class HwNotchSizeUtil = cl.loadClass("com.huawei.android.util.HwNotchSizeUtil");
+            Class HwNotchSizeUtil = cl.loadClass("com.huawei.android.util.HwNotchSizeUtil");
+    
+            Method get = HwNotchSizeUtil.getMethod("getNotchSize");
+            ret = (int[]) get.invoke(HwNotchSizeUtil);
+        }catch(Exception e){
 
-        Method get = HwNotchSizeUtil.getMethod("getNotchSize");
+        }
+        
 
-        ret = (int[]) get.invoke(HwNotchSizeUtil);
+       
         return ret[1];
     }
 
