@@ -110,7 +110,7 @@ public class NativeUITools extends CordovaPlugin {
                     }else if(type.equals("lightColor")){
                         opt = opt & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     }
-                    callbackContext.success(type)
+                    callbackContext.success(type);
                     window.getDecorView().setSystemUiVisibility(opt);
                     // 设置状态栏为透明 ,必须为沉浸时才有效
 
