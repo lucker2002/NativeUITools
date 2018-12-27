@@ -38,11 +38,19 @@ public class NativeUITools extends CordovaPlugin {
             return true;
         }
         if (action.equals("setStatusBarColorType")) {
+           
             if (Build.VERSION.SDK_INT >= 21) {
                 this.cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setStatusBarColorType(args.getString(0));
+                        String type ="";
+                        try{
+                            type = args.getString(0);
+                            
+                        }catch(Exception e){
+                            callbackContext.error("error");
+                        }
+                        setStatusBarColorType(type,callbackContext);
 
                     }
                 });
@@ -91,14 +99,18 @@ public class NativeUITools extends CordovaPlugin {
         }
         return false;
     }
-    private void setStatusBarColorType(final String type){
+    private void setStatusBarColorType(final String type ,CallbackContext callbackContext){
         if (Build.VERSION.SDK_INT >= 21) {
                     final Window window = cordova.getActivity().getWindow();
                     int opt = window.getDecorView().getSystemUiVisibility();
-                    if (type == "darkColor") {
-                        opt |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    
+                    if (type.equals("darkColor")) {
+                        
+                        opt = opt | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    }else if(type.equals("lightColor")){
+                        opt = opt & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     }
-
+                    callbackContext.success(type)
                     window.getDecorView().setSystemUiVisibility(opt);
                     // 设置状态栏为透明 ,必须为沉浸时才有效
 
