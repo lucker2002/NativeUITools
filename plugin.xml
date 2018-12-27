@@ -2,7 +2,7 @@
 <plugin id="cordova-plugin-nativeUITools" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>NativeUITools</name>
     <js-module name="NativeUITools" src="www/NativeUITools.js">
-        <clobbers target="window.NativeUITools" />
+        <clobbers target="cordova.plugin.NativeUITools" />
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
