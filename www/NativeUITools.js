@@ -21,6 +21,10 @@ let NativeUITools = {
     setFullScreen:function (arg0, success, error) {
         exec(success, error, 'NativeUITools', 'setFullScreen', []);
     },
+
+    setStatusBarColorType:function(arg0, success, error){
+        exec(success, error, 'NativeUITools', 'setStatusBarColorType', [arg0]);
+    }
     
 }
 module.exports = NativeUITools;

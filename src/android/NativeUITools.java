@@ -37,7 +37,22 @@ public class NativeUITools extends CordovaPlugin {
 
             return true;
         }
+        if (action.equals("setStatusBarColorType")) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                this.cordova.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setStatusBarColorType(args.getString(0));
 
+                    }
+                });
+
+            } else {
+                return false;
+            }
+
+            return true;
+        }
         if (action.equals("setImmerse")) {
             if (Build.VERSION.SDK_INT >= 21) {
                 this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -75,6 +90,20 @@ public class NativeUITools extends CordovaPlugin {
             return true;
         }
         return false;
+    }
+    private void setStatusBarColorType(final String type){
+        if (Build.VERSION.SDK_INT >= 21) {
+                    final Window window = cordova.getActivity().getWindow();
+                    int opt = window.getDecorView().getSystemUiVisibility();
+                    if (type == "darkColor") {
+                        opt |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    }
+
+                    window.getDecorView().setSystemUiVisibility(opt);
+                    // 设置状态栏为透明 ,必须为沉浸时才有效
+
+                }
+
     }
 
     private void setImmerse(CallbackContext callbackContext) {
