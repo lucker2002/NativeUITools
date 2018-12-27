@@ -10,6 +10,6 @@
                 <param name="android-package" value="org.apache.cordova.nativeUITools.NativeUITools" />
             </feature>
         </config-file>
-        <source-file src="src/android/NativeUITools.java" target-dir="src/org/apache/cordova/nativeUITools" />
+        <source-file src="src/android/NativeUITools.java" target-dir="src/org/apache/cordova/nativeUITools/NativeUITools" />
     </platform>
 </plugin>
