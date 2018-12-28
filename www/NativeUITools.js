@@ -7,6 +7,10 @@ let NativeUITools = {
         exec(success, error, 'NativeUITools', 'getNotchHeight', []);
     },
 
+    getEquipmentSize:function (arg0, success, error) {
+        exec(success, error, 'NativeUITools', 'getEquipmentSize', []);
+    },
+
     //设置沉浸
     setImmerse: function (arg0, success, error) {
         exec(success, error, 'NativeUITools', 'setImmerse', []);

@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.content.Context;
 import java.lang.reflect.Method;
+import android.util.DisplayMetrics;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -37,6 +38,18 @@ public class NativeUITools extends CordovaPlugin {
 
             return true;
         }
+
+         if (action.equals("getEquipmentSize")) {
+
+                    Activity activity = this.cordova.getActivity();
+                    DisplayMetrics displaysMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
+                    String str[][] = new String[displaysMetrics.widthPixels][displaysMetrics.heightPixels];
+
+                    callbackContext.success(str);
+
+                    return true;
+                }
         if (action.equals("setStatusBarColorType")) {
            
             if (Build.VERSION.SDK_INT >= 21) {
@@ -99,6 +112,7 @@ public class NativeUITools extends CordovaPlugin {
         }
         return false;
     }
+
     private void setStatusBarColorType(final String type ,CallbackContext callbackContext){
         if (Build.VERSION.SDK_INT >= 21) {
                     final Window window = cordova.getActivity().getWindow();
@@ -158,7 +172,7 @@ public class NativeUITools extends CordovaPlugin {
         window.getDecorView().setSystemUiVisibility(opt);
     }
 
-    public static int getHuaWei(Context context) {
+    private static int getHuaWei(Context context) {
 
         int[] ret = new int[]{0, 0};
         try{
@@ -177,7 +191,7 @@ public class NativeUITools extends CordovaPlugin {
         return ret[1];
     }
 
-    public static int getXiaoMi(Context context) {
+    private static int getXiaoMi(Context context) {
        
         int resourceId = context.getResources().getIdentifier("notch_height", "dimen", "android");
         int result = 0;
