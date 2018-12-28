@@ -1,4 +1,5 @@
 package org.apache.cordova.nativeUITools;
+
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
@@ -24,7 +25,7 @@ public class NativeUITools extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getNotchHeight")) {
-            
+
             Activity activity = this.cordova.getActivity();
             String manufacturer = Build.MANUFACTURER;
             int notchHeight = 0;
@@ -34,36 +35,41 @@ public class NativeUITools extends CordovaPlugin {
             if (manufacturer.equalsIgnoreCase("HuaWei")) {
                 notchHeight = getHuaWei(activity);
             }
-            callbackContext.success(notchHeight+"");
+            if(notchHeight==0){
+                Resources resources = activity.getResources();
+                int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+                notchHeight = resources.getDimensionPixelSize(resourceId);
+            }
+
+
+            callbackContext.success(notchHeight + "");
 
             return true;
         }
 
-         if (action.equals("getEquipmentWidth")) {
+        if (action.equals("getEquipmentWidth")) {
 
-                    Activity activity = this.cordova.getActivity();
-                                        DisplayMetrics displaysMetrics = new DisplayMetrics();
-                                        activity.getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
-                                        String width = ""+ displaysMetrics.widthPixels;
-
-                                        callbackContext.success(width);
-
-                                        return true;
-                }
+            Activity activity = this.cordova.getActivity();
+            DisplayMetrics displaysMetrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
+            String width = "" + displaysMetrics.widthPixels;
+            callbackContext.success(width);
+            return true;
+        }
         if (action.equals("setStatusBarColorType")) {
-           
+
             if (Build.VERSION.SDK_INT >= 21) {
                 this.cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String type ="";
-                        try{
+                        String type = "";
+                        try {
                             type = args.getString(0);
-                            
-                        }catch(Exception e){
+
+                        } catch (Exception e) {
                             callbackContext.error("error");
                         }
-                        setStatusBarColorType(type,callbackContext);
+                        setStatusBarColorType(type, callbackContext);
 
                     }
                 });
@@ -113,22 +119,22 @@ public class NativeUITools extends CordovaPlugin {
         return false;
     }
 
-    private void setStatusBarColorType(final String type ,CallbackContext callbackContext){
+    private void setStatusBarColorType(final String type, CallbackContext callbackContext) {
         if (Build.VERSION.SDK_INT >= 21) {
-                    final Window window = cordova.getActivity().getWindow();
-                    int opt = window.getDecorView().getSystemUiVisibility();
-                    
-                    if (type.equals("darkColor")) {
-                        
-                        opt = opt | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                    }else if(type.equals("lightColor")){
-                        opt = opt & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                    }
-                    callbackContext.success(type);
-                    window.getDecorView().setSystemUiVisibility(opt);
-                    // 设置状态栏为透明 ,必须为沉浸时才有效
+            final Window window = cordova.getActivity().getWindow();
+            int opt = window.getDecorView().getSystemUiVisibility();
 
-                }
+            if (type.equals("darkColor")) {
+
+                opt = opt | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else if (type.equals("lightColor")) {
+                opt = opt & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            callbackContext.success(type);
+            window.getDecorView().setSystemUiVisibility(opt);
+            // 设置状态栏为透明 ,必须为沉浸时才有效
+
+        }
 
     }
 
@@ -162,44 +168,42 @@ public class NativeUITools extends CordovaPlugin {
         final Window window = cordova.getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         int opt = window.getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_FULLSCREEN| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION ;
-                if (Build.VERSION.SDK_INT >= 19) {
-                    opt |= 0x00001000;
-                } else {
-                    opt |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
-                }
+                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (Build.VERSION.SDK_INT >= 19) {
+            opt |= 0x00001000;
+        } else {
+            opt |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        }
         window.getDecorView().setSystemUiVisibility(opt);
     }
 
     private static int getHuaWei(Context context) {
 
-        int[] ret = new int[]{0, 0};
-        try{
+        int[] ret = new int[] { 0, 0 };
+        try {
             ClassLoader cl = context.getClassLoader();
 
             Class HwNotchSizeUtil = cl.loadClass("com.huawei.android.util.HwNotchSizeUtil");
-    
+
             Method get = HwNotchSizeUtil.getMethod("getNotchSize");
             ret = (int[]) get.invoke(HwNotchSizeUtil);
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
-        
 
-       
         return ret[1];
     }
 
     private static int getXiaoMi(Context context) {
-       
+
         int resourceId = context.getResources().getIdentifier("notch_height", "dimen", "android");
         int result = 0;
 
         if (resourceId > 0) {
-             result = context.getResources().getDimensionPixelSize(resourceId);
-           
+            result = context.getResources().getDimensionPixelSize(resourceId);
+
         }
-         return result;
+        return result;
     }
 }
