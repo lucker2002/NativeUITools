@@ -44,7 +44,7 @@ public class NativeUITools extends CordovaPlugin {
                     Activity activity = this.cordova.getActivity();
                                         DisplayMetrics displaysMetrics = new DisplayMetrics();
                                         activity.getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
-                                        String width = "="+ displaysMetrics.widthPixels;
+                                        String width = ""+ displaysMetrics.widthPixels;
 
                                         callbackContext.success(width);
 
