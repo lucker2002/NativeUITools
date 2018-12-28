@@ -7,8 +7,8 @@ let NativeUITools = {
         exec(success, error, 'NativeUITools', 'getNotchHeight', []);
     },
 
-    getEquipmentSize:function (arg0, success, error) {
-        exec(success, error, 'NativeUITools', 'getEquipmentSize', []);
+    getEquipmentWidth:function (arg0, success, error) {
+        exec(success, error, 'NativeUITools', 'getEquipmentWidth', []);
     },
 
     //设置沉浸

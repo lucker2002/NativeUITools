@@ -39,16 +39,16 @@ public class NativeUITools extends CordovaPlugin {
             return true;
         }
 
-         if (action.equals("getEquipmentSize")) {
+         if (action.equals("getEquipmentWidth")) {
 
                     Activity activity = this.cordova.getActivity();
-                    DisplayMetrics displaysMetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
-                    String str[][] = new String[displaysMetrics.widthPixels][displaysMetrics.heightPixels];
+                                        DisplayMetrics displaysMetrics = new DisplayMetrics();
+                                        activity.getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
+                                        String width = "="+ displaysMetrics.widthPixels;
 
-                    callbackContext.success(str);
+                                        callbackContext.success(width);
 
-                    return true;
+                                        return true;
                 }
         if (action.equals("setStatusBarColorType")) {
            
