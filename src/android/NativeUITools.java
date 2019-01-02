@@ -97,8 +97,10 @@ public class NativeUITools extends CordovaPlugin {
             return true;
         }
         if (action.equals("getNavigationBarHeight")) {
+
             String height = getNavigationBarHeight() + "";
-            callbackContext.success(height);
+
+            callbackContext.success(height+"");
             return true;
         }
         if (action.equals("setFullScreen")) {
@@ -141,6 +143,8 @@ public class NativeUITools extends CordovaPlugin {
     private void setImmerse(CallbackContext callbackContext) {
         if (Build.VERSION.SDK_INT >= 21) {
             final Window window = cordova.getActivity().getWindow();
+
+
             int opt = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             if (Build.VERSION.SDK_INT >= 19) {
@@ -148,19 +152,27 @@ public class NativeUITools extends CordovaPlugin {
             } else {
                 opt |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
             }
-            callbackContext.success("sss>>>" + opt);
+
             window.getDecorView().setSystemUiVisibility(opt);
             // 设置状态栏为透明 ,必须为沉浸时才有效
             window.setStatusBarColor(Color.TRANSPARENT);
+            callbackContext.success(opt);
         }
 
     }
 
     private int getNavigationBarHeight() {
         final Activity activity = this.cordova.getActivity();
+        final Window window = cordova.getActivity().getWindow();
+        int height = 0;
         Resources resources = activity.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-        int height = resources.getDimensionPixelSize(resourceId);
+        boolean isHidden = (window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if(!isHidden){
+            height = resources.getDimensionPixelSize(resourceId);
+        }
+
+
         return height;
     }
 
