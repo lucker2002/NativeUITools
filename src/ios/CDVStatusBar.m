@@ -346,6 +346,17 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     [self _backgroundColorByHexString:value];
 }
 
+
+- (void) setStatusBarColorType:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"%@ command---------", command);
+    NSLog(@"%@ command argumentAtIndex:0----------", command argumentAtIndex:0);
+
+
+}
+
+
+
 - (void) hideStatusBar
 {
     if (_uiviewControllerBasedStatusBarAppearance) {
