@@ -352,7 +352,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     NSLog(@"%@ command---------", command);
     NSLog(@"%@ command argumentAtIndex:0----------", command argumentAtIndex:0);
 
-
 }
 
 

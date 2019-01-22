@@ -39,9 +39,10 @@
 - (void) styleBlackTranslucent:(CDVInvokedUrlCommand*)command;
 - (void) styleBlackOpaque:(CDVInvokedUrlCommand*)command;
 
+- (void) backgroundColorByName:(CDVInvokedUrlCommand*)command;
+
 - (void) setStatusBarColorType:(CDVInvokedUrlCommand*)command;
 
-- (void) backgroundColorByName:(CDVInvokedUrlCommand*)command;
 - (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command;
 
 - (void) hide:(CDVInvokedUrlCommand*)command;

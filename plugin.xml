@@ -15,7 +15,7 @@
     <platform name="ios">
 
         <config-file target="config.xml" parent="/*">
-            <feature name="StatusBar">
+            <feature name="NativeUITools">
                 <param name="ios-package" value="CDVStatusBar" />
                 <param name="onload" value="true" />
             </feature>
