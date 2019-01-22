@@ -321,15 +321,6 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
     }
 }
 
-
-
-- (void) setStatusBarColorType:(CDVInvokedUrlCommand*)command
-{
-    NSLog(@"abcccc-----------",command argumentAtIndex:0);
-}
-
-
-
 - (void) _backgroundColorByHexString:(NSString*)hexString
 {
     unsigned int rgbValue = 0;
