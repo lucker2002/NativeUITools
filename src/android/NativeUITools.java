@@ -186,8 +186,8 @@ public class NativeUITools extends CordovaPlugin {
     }
 
     private void navigationBarShow(){
-         var flag = action_navigation_bar_hide or action_hide_status_bar
-         window.decorView.systemUiVisibility = flag
+        final Window window = cordova.getActivity().getWindow();
+         window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
          //window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 
