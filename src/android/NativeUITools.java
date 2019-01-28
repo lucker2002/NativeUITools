@@ -134,8 +134,7 @@ public class NativeUITools extends CordovaPlugin {
             }
             callbackContext.success(type);
             window.getDecorView().setSystemUiVisibility(opt);
-            // 设置状态栏为透明 ,必须为沉浸时才有效
-
+           
         }
 
     }
@@ -154,6 +153,10 @@ public class NativeUITools extends CordovaPlugin {
             }
 
             window.getDecorView().setSystemUiVisibility(opt);
+
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
             // 设置状态栏为透明 ,必须为沉浸时才有效
             window.setStatusBarColor(Color.TRANSPARENT);
             callbackContext.success(opt);
@@ -174,6 +177,12 @@ public class NativeUITools extends CordovaPlugin {
 
 
         return height;
+    }
+
+    private void navigationBarShow(){
+         var flag = action_navigation_bar_hide or action_hide_status_bar
+         window.decorView.systemUiVisibility = flag
+         //window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 
     private void setFullScreen(CallbackContext callbackContext) {

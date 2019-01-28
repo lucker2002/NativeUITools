@@ -28,7 +28,10 @@ let NativeUITools = {
 
     setStatusBarColorType:function(arg0, success, error){
         exec(success, error, 'NativeUITools', 'setStatusBarColorType', [arg0]);
+    },
+    navigationBarShow:function (arg0, success, error) {
+        exec(success, error, 'NativeUITools', 'navigationBarShow', []);
+        
     }
-    
 }
 module.exports = NativeUITools;
