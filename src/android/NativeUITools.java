@@ -189,7 +189,7 @@ public class NativeUITools extends CordovaPlugin {
         final Window window = cordova.getActivity().getWindow();
         int opt = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                              | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-                            callbackContext.success(opt);
+                            window.getDecorView().setSystemUiVisibility(opt);
     }
 
     private void setFullScreen(CallbackContext callbackContext) {
