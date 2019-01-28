@@ -160,8 +160,8 @@ public class NativeUITools extends CordovaPlugin {
 
             window.getDecorView().setSystemUiVisibility(opt);
 
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
             // 设置状态栏为透明 ,必须为沉浸时才有效
             window.setStatusBarColor(Color.TRANSPARENT);
