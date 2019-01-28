@@ -187,8 +187,9 @@ public class NativeUITools extends CordovaPlugin {
 
     private void navigationBarShow(){
         final Window window = cordova.getActivity().getWindow();
-         window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-         //window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        int opt = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                            callbackContext.success(opt);
     }
 
     private void setFullScreen(CallbackContext callbackContext) {
