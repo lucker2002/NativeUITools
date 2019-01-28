@@ -81,21 +81,27 @@ public class NativeUITools extends CordovaPlugin {
             return true;
         }
         if (action.equals("setImmerse")) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                this.cordova.getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setImmerse(callbackContext);
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setImmerse(callbackContext);
 
-                    }
-                });
-
-            } else {
-                return false;
-            }
+                                }
+                            });
 
             return true;
         }
+         if (action.equals("navigationBarShow")) {
+                    this.cordova.getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            navigationBarShow();
+
+                                        }
+                                    });
+
+                    return true;
+                }
         if (action.equals("getNavigationBarHeight")) {
 
             String height = getNavigationBarHeight() + "";
