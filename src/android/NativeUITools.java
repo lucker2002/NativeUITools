@@ -35,12 +35,11 @@ public class NativeUITools extends CordovaPlugin {
             if (manufacturer.equalsIgnoreCase("HuaWei")) {
                 notchHeight = getHuaWei(activity);
             }
-            if(notchHeight==0){
+            if (notchHeight == 0) {
                 Resources resources = activity.getResources();
                 int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
                 notchHeight = resources.getDimensionPixelSize(resourceId);
             }
-
 
             callbackContext.success(notchHeight + "");
 
@@ -82,31 +81,38 @@ public class NativeUITools extends CordovaPlugin {
         }
         if (action.equals("setImmerse")) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    setImmerse(callbackContext);
+                @Override
+                public void run() {
+                    setImmerse(callbackContext);
+                    String type = "";
+                    try {
+                        type = args.getString(0);
 
-                                }
-                            });
+                    } catch (Exception e) {
+                        callbackContext.error("error");
+                    }
+                    setStatusBarColorType(type, callbackContext);
+                }
+            });
 
             return true;
         }
-         if (action.equals("navigationBarShow")) {
-                    this.cordova.getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            navigationBarShow();
+        if (action.equals("navigationBarShow")) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    navigationBarShow();
 
-                                        }
-                                    });
-
-                    return true;
                 }
+            });
+
+            return true;
+        }
         if (action.equals("getNavigationBarHeight")) {
 
             String height = getNavigationBarHeight() + "";
 
-            callbackContext.success(height+"");
+            callbackContext.success(height + "");
             return true;
         }
         if (action.equals("setFullScreen")) {
@@ -140,7 +146,7 @@ public class NativeUITools extends CordovaPlugin {
             }
             callbackContext.success(type);
             window.getDecorView().setSystemUiVisibility(opt);
-           
+
         }
 
     }
@@ -148,7 +154,6 @@ public class NativeUITools extends CordovaPlugin {
     private void setImmerse(CallbackContext callbackContext) {
         if (Build.VERSION.SDK_INT >= 21) {
             final Window window = cordova.getActivity().getWindow();
-
 
             int opt = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
@@ -160,8 +165,8 @@ public class NativeUITools extends CordovaPlugin {
 
             window.getDecorView().setSystemUiVisibility(opt);
 
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            // window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
             // 设置状态栏为透明 ,必须为沉浸时才有效
             window.setStatusBarColor(Color.TRANSPARENT);
@@ -176,20 +181,20 @@ public class NativeUITools extends CordovaPlugin {
         int height = 0;
         Resources resources = activity.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-        boolean isHidden = (window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        if(!isHidden){
+        boolean isHidden = (window.getDecorView().getSystemUiVisibility()
+                & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (!isHidden) {
             height = resources.getDimensionPixelSize(resourceId);
         }
-
 
         return height;
     }
 
-    private void navigationBarShow(){
+    private void navigationBarShow() {
         final Window window = cordova.getActivity().getWindow();
         int opt = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-                            window.getDecorView().setSystemUiVisibility(opt);
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        window.getDecorView().setSystemUiVisibility(opt);
     }
 
     private void setFullScreen(CallbackContext callbackContext) {
