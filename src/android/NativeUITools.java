@@ -102,7 +102,14 @@ public class NativeUITools extends CordovaPlugin {
                 @Override
                 public void run() {
                     navigationBarShow();
+                    String type = "";
+                    try {
+                        type = args.getString(0);
 
+                    } catch (Exception e) {
+                        callbackContext.error("error");
+                    }
+                    setStatusBarColorType(type, callbackContext);
                 }
             });
 
