@@ -13,7 +13,7 @@ let NativeUITools = {
 
     //设置沉浸
     setImmerse: function (arg0, success, error) {
-        exec(success, error, 'NativeUITools', 'setImmerse', []);
+        exec(success, error, 'NativeUITools', 'setImmerse', [arg0]);
     },
 
     //获取虚拟按键高度
